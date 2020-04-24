@@ -9,7 +9,7 @@ module.exports = async function() {
         name: 'ember-lts-3.12',
         npm: {
           devDependencies: {
-            'ember-source': '~3.12.0'
+            'ember-source': '~3.12.x'
           }
         }
       },
@@ -17,7 +17,7 @@ module.exports = async function() {
         name: 'ember-lts-3.16',
         npm: {
           devDependencies: {
-            'ember-source': '~3.16.0'
+            'ember-source': '~3.16.x'
           }
         }
       },
@@ -69,6 +69,17 @@ module.exports = async function() {
         }
       },
       {
+        name: 'ember-default-with-template-only-glimmer',
+        env: {
+          EMBER_OPTIONAL_FEATURES: JSON.stringify({
+            'template-only-glimmer-components': true
+          })
+        },
+        npm: {
+          devDependencies: {}
+        }
+      },
+      {
         name: 'ember-classic',
         env: {
           EMBER_OPTIONAL_FEATURES: JSON.stringify({
@@ -80,6 +91,22 @@ module.exports = async function() {
         npm: {
           ember: {
             edition: 'classic'
+          }
+        }
+      },
+      {
+        name: 'ember-octane',
+        env: {
+          EMBER_OPTIONAL_FEATURES: JSON.stringify({
+            "application-template-wrapper": false,
+            "default-async-observers": true,
+            "jquery-integration": false,
+            "template-only-glimmer-components": true
+          })
+        },
+        npm: {
+          ember: {
+            edition: 'octane'
           }
         }
       }
