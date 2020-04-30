@@ -3,7 +3,7 @@
 ## Installation
 
 * `git clone <repository-url>`
-* `cd ember-unique-id-helper`
+* `cd ember-context-id-helper`
 * `npm install`
 
 ## Linting

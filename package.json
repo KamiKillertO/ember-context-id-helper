@@ -1,5 +1,5 @@
 {
-  "name": "ember-unique-id-helper",
+  "name": "ember-context-id-helper",
   "version": "0.1.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [

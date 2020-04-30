@@ -6,7 +6,7 @@ import { resetOnerror } from '@ember/test-helpers';
 import { guidFor } from '@ember/object/internals';
 
 
-module('Integration | Helper | unique-id', function(hooks) {
+module('Integration | Helper | context-id', function(hooks) {
   setupRenderingTest(hooks);
 
   hooks.afterEach(function() {
@@ -16,7 +16,7 @@ module('Integration | Helper | unique-id', function(hooks) {
   test('generate a unique id for the context provided', async function(assert) {
     let context = {};
     this.set('context', context);
-    await render(hbs`{{unique-id context}}`)
+    await render(hbs`{{context-id context}}`)
     // guidFor always return the same id for the same input
     let uniqueId = guidFor(context);
 
@@ -61,10 +61,10 @@ module('Integration | Helper | unique-id', function(hooks) {
 
     setupOnerror(function(error) {
       assert
-        .equal(error.message, 'Assertion Failed: You must provide a context to `unique-id` helper. Try `{{unique-id this}}`.', 'Error is thrown');
+        .equal(error.message, 'Assertion Failed: You must provide a context to `context-id` helper. Try `{{context-id this}}`.', 'Error is thrown');
     });
 
-    await render(hbs`{{unique-id}}`)
+    await render(hbs`{{context-id}}`)
   })
 
 });

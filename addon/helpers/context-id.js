@@ -5,6 +5,6 @@ import { isNone } from '@ember/utils';
 
 export default helper(function uniqueId(params/*, hash*/) {
   let [context] = params;
-  assert('You must provide a context to `unique-id` helper. Try `{{unique-id this}}`.', isNone(context) === false);
+  assert('You must provide a context to `context-id` helper. Try `{{context-id this}}`.', isNone(context) === false);
   return guidFor(context);
 });

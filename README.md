@@ -1,7 +1,7 @@
-ember-unique-id-helper
+ember-context-id-helper
 ==============================================================================
 
-This addon provides an helper `{{unique-id}}` that generate a unique for a specified context.
+This addon provides an helper `{{context-id}}` that generate a unique for a specified context.
 It take inspirations from [this Pre RFC](https://github.com/emberjs/rfcs/issues/612).
 
 Compatibility
@@ -15,19 +15,19 @@ Installation
 ------------------------------------------------------------------------------
 
 ```shell
-ember install ember-unique-id-helper
+ember install ember-context-id-helper
 ```
 
 Usage
 ------------------------------------------------------------------------------
 
-The `{{unique-id}}` generates a unique id for a given context. Because it uses the ember [guidFor](https://api.emberjs.com/ember/3.16/functions/@ember%2Fobject%2Finternals/guidFor) function under the hood, it will always return the same id for the same context.
-A use case for `unique-id` helper is to programmatically associate labels and input element using the label's `for` attribute and the input's `id` attribute.
+The `{{context-id}}` generates a unique id for a given context. Because it uses the ember [guidFor](https://api.emberjs.com/ember/3.16/functions/@ember%2Fobject%2Finternals/guidFor) function under the hood, it will always return the same id for the same context.
+A use case for `context-id` helper is to programmatically associate labels and input element using the label's `for` attribute and the input's `id` attribute.
 
 ```hbs
 // components/my-input.hbs
-<label for={{unique-id this}}>Input Label</label>
-<input id={{unique-id this}} type="text"/>
+<label for={{context-id this}}>Input Label</label>
+<input id={{context-id this}} type="text"/>
 ```
 
 When used in a template the previous component template will render an input and is associated label.
@@ -51,23 +51,23 @@ Will render
 
 ```
 
-The `unique-id` helper require a context to generate the unique id. A context can be any object, string, number, Element, or primitive, however we recommend not using a string or a number because `unique-id` will generate the same id for the same value.
+The `context-id` helper require a context to generate the unique id. A context can be any object, string, number, Element, or primitive, however we recommend not using a string or a number because `context-id` will generate the same id for the same value.
 For example if you you modify the previous example like this:
 
 ```hbs
 // components/my-input.hbs
-<label for={{unique-id "my-input"}}>Input Label</label>
-<input id={{unique-id "my-input"}} type="text"/>
+<label for={{context-id "my-input"}}>Input Label</label>
+<input id={{context-id "my-input"}} type="text"/>
 ```
 
 All uses of `MyInput` will generate an input with the same id.
 
-The easiest way to ensure that components (or route templates) using `unique-id` doesn't share the same ids, is to provide the helper with the component/template `this` context.
+The easiest way to ensure that components (or route templates) using `context-id` doesn't share the same ids, is to provide the helper with the component/template `this` context.
 
 Limitations
 ------------------------------------------------------------------------------
 
-You cannot use `{{unique-id this}}` in template only glimmer components as they don't have a `this` (see [the feature documentation](https://guides.emberjs.com/release/configuring-ember/optional-features/#toc_template-only-glimmer-components)).
+You cannot use `{{context-id this}}` in template only glimmer components as they don't have a `this` (see [the feature documentation](https://guides.emberjs.com/release/configuring-ember/optional-features/#toc_template-only-glimmer-components)).
 
 Todo
 ------------------------------------------------------------------------------
