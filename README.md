@@ -75,7 +75,6 @@ Todo
 * [ ] Implicitely get current context
 * [ ] Make it work with template only glimmer component
     (For thoses component `this` is `undefined`)
-* [ ] Publish addon
 
 Contributing
 ------------------------------------------------------------------------------
