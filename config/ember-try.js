@@ -70,6 +70,7 @@ module.exports = async function() {
       },
       {
         name: 'ember-default-with-template-only-glimmer',
+        allowedToFail: true,
         env: {
           EMBER_OPTIONAL_FEATURES: JSON.stringify({
             'template-only-glimmer-components': true
@@ -96,6 +97,7 @@ module.exports = async function() {
       },
       {
         name: 'ember-octane',
+        allowedToFail: true,
         env: {
           EMBER_OPTIONAL_FEATURES: JSON.stringify({
             "application-template-wrapper": false,
