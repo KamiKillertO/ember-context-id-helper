@@ -1,17 +1,17 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, setupOnerror, findAll } from '@ember/test-helpers';
+import { render, /*setupOnerror,*/ findAll } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { resetOnerror } from '@ember/test-helpers';
+// import { resetOnerror } from '@ember/test-helpers';
 import { guidFor } from '@ember/object/internals';
-
+import Ember from 'ember';
 
 module('Integration | Helper | context-id', function(hooks) {
   setupRenderingTest(hooks);
 
-  hooks.afterEach(function() {
-    resetOnerror();
-  })
+  // hooks.afterEach(function() {
+  //   resetOnerror();
+  // })
 
   test('generate a unique id for the context provided', async function(assert) {
     let context = {};
@@ -58,11 +58,14 @@ module('Integration | Helper | context-id', function(hooks) {
 
   test('Require a context', async function(assert) {
     assert.expect(1);
+    // setupOnerror(function(error) {
 
-    setupOnerror(function(error) {
+    Ember.onerror = function(error) {
       assert
         .equal(error.message, 'Assertion Failed: You must provide a context to `context-id` helper. Try `{{context-id this}}`.', 'Error is thrown');
-    });
+      Ember.onerror = () => {} // onerror is called twice
+      // temporary fix see https://github.com/emberjs/ember-test-helpers/issues/768
+    }
 
     await render(hbs`{{context-id}}`)
   })
