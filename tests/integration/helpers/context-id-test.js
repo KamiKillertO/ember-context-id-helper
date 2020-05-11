@@ -4,7 +4,6 @@ import { render, /*setupOnerror,*/ findAll } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 // import { resetOnerror } from '@ember/test-helpers';
 import { guidFor } from '@ember/object/internals';
-import { helper as buildHelper } from '@ember/component/helper';
 import Ember from 'ember';
 
 module('Integration | Helper | context-id', function(hooks) {
@@ -25,36 +24,23 @@ module('Integration | Helper | context-id', function(hooks) {
   })
 
   test('It generate unique id for template only components', async function(assert) {
-    await render(hbs`<TemplateOnlyInput @label="Foo"/>`)
+    this.owner.register('template:components/foo', hbs`<span id="{{context-id}}-span">Hello world</span>`);
+    await render(hbs`<Foo/>`)
 
     assert
-      .dom('input')
-      .hasAttribute('id', /^ember.*/)
+      .dom('span')
+      .hasAttribute('id', /^ember[\d]+-span/)
   });
 
   test('Generate an unique for each instance of the same component', async function(assert) {
-    await render(hbs`
-      <MyInput @label="Foo"/>
-      <MyInput @label="Bar"/>
-    `);
+    this.owner.register('template:components/foo', hbs`<span id="{{context-id}}-span">Hello world</span>`);
+    await render(hbs`<Foo/><Foo/>`);
 
     assert
-      .dom('input')
-      .exists({ count: 2 }, 'Two inputs are rendered');
-    assert
-      .dom('label')
-      .exists({ count: 2 }, 'Two label are rendered');
-    const inputs = findAll('input');
-    const labels = findAll('label');
-    assert.notEqual(inputs[0].id, inputs[1].id, 'Inputs have different ids');
-    assert
-      .notEqual(
-        labels[0].getAttribute('for'),
-        labels[1].getAttribute('for'),
-        'Labels have different ids'
-      );
-    assert
-      .equal(inputs[0].id, labels[0].getAttribute('for'), 'Label "for" attribute has the same value has input "id" attribute');
+      .dom('span')
+      .exists({ count: 2 }, 'Two span are rendered');
+    const span = findAll('span');
+    assert.notEqual(span[0].id, span[1].id, 'Both span have different ids');
   })
 
   test('Use `this` as context by default', async function(assert) {
