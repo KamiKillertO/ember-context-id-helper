@@ -4,6 +4,7 @@ import { render, /*setupOnerror,*/ findAll } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 // import { resetOnerror } from '@ember/test-helpers';
 import { guidFor } from '@ember/object/internals';
+import { helper as buildHelper } from '@ember/component/helper';
 import Ember from 'ember';
 
 module('Integration | Helper | context-id', function(hooks) {
@@ -56,7 +57,14 @@ module('Integration | Helper | context-id', function(hooks) {
       .equal(inputs[0].id, labels[0].getAttribute('for'), 'Label "for" attribute has the same value has input "id" attribute');
   })
 
-  test('Require a context', async function(assert) {
+  test('Use `this` as context by default', async function(assert) {
+    await render(hbs`{{context-id}}`);
+
+    let uniqueId = guidFor(this);
+    assert.equal(this.element.textContent.trim(), uniqueId);
+  })
+
+  test('Require a non empty context', async function(assert) {
     assert.expect(1);
     // setupOnerror(function(error) {
 
@@ -67,7 +75,6 @@ module('Integration | Helper | context-id', function(hooks) {
       // temporary fix see https://github.com/emberjs/ember-test-helpers/issues/768
     }
 
-    await render(hbs`{{context-id}}`)
+    await render(hbs`{{context-id this.context}}`)
   })
-
 });
