@@ -26,8 +26,8 @@ A use case for `context-id` helper is to programmatically associate labels and i
 
 ```hbs
 // components/my-input.hbs
-<label for={{context-id this}}>Input Label</label>
-<input id={{context-id this}} type="text"/>
+<label for="{{context-id this}}-input">Input Label</label>
+<input id="{{context-id this}}-input" type="text"/>
 ```
 
 When used in a template the previous component template will render an input and is associated label.
@@ -44,25 +44,23 @@ For exemple the folowing code :
 Will render
 
 ```hbs
-<label for="ember-xx1">Input Label</label>
-<input id="ember-xx1" type="text"/>
-<label for="ember-xx2">Input Label</label>
-<input id="ember-xx2" type="text"/>
-
+<label for="emberxx1-input">Input Label</label>
+<input id="emberxx1-input" type="text"/>
+<label for="emberxx2-input">Input Label</label>
+<input id="emberxx2-input" type="text"/>
 ```
 
-The `context-id` helper require a context to generate the unique id. A context can be any object, string, number, Element, or primitive, however we recommend not using a string or a number because `context-id` will generate the same id for the same value.
+By default `context-id` will use a component/template `this` as context but you can also manually provide a context if you want.
+A context can be any object, string, number, Element, or primitive, however we recommend not using a string or a number because `context-id` will generate the same id for the same value.
 For example if you you modify the previous example like this:
 
 ```hbs
 // components/my-input.hbs
-<label for={{context-id "my-input"}}>Input Label</label>
-<input id={{context-id "my-input"}} type="text"/>
+<label for="{{context-id "my-input"}}-input">Input Label</label>
+<input id="{{context-id "my-input"}}-input" type="text"/>
 ```
 
 All uses of `MyInput` will generate an input with the same id.
-
-The easiest way to ensure that components (or route templates) using `context-id` doesn't share the same ids, is to provide the helper with the component/template `this` context.
 
 Limitations
 ------------------------------------------------------------------------------
@@ -72,7 +70,7 @@ You cannot use `{{context-id this}}` in template only glimmer components as they
 Todo
 ------------------------------------------------------------------------------
 
-* [ ] Implicitely get current context
+* [x] Implicitely get current context
 * [ ] Make it work with template only glimmer component
     (For thoses component `this` is `undefined`)
 
