@@ -62,18 +62,6 @@ For example if you you modify the previous example like this:
 
 All uses of `MyInput` will generate an input with the same id.
 
-Limitations
-------------------------------------------------------------------------------
-
-You cannot use `{{context-id this}}` in template only glimmer components as they don't have a `this` (see [the feature documentation](https://guides.emberjs.com/release/configuring-ember/optional-features/#toc_template-only-glimmer-components)).
-
-Todo
-------------------------------------------------------------------------------
-
-* [x] Implicitely get current context
-* [ ] Make it work with template only glimmer component
-    (For thoses component `this` is `undefined`)
-
 Contributing
 ------------------------------------------------------------------------------
 
