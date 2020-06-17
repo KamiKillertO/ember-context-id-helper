@@ -1,6 +1,10 @@
 'use strict';
 
-const InjectContextTransform = require('./lib/inject-context');
+const {
+  LegacyInjectContextTransform,
+  InjectContextTransform
+} = require('./lib/inject-context');
+const VersionChecker = require('ember-cli-version-checker');
 
 module.exports = {
   name: require('./package').name,
@@ -8,12 +12,17 @@ module.exports = {
     if (type !== 'parent') {
       return;
     }
-    let optionalFeatures = this.project.addons.find(a => a.name === '@ember/optional-features');
-    if (optionalFeatures && optionalFeatures.isFeatureEnabled('template-only-glimmer-components') === false) {
-      registry.add('htmlbars-ast-plugin', {
-        name: 'inject-context',
-        plugin: InjectContextTransform
-      });
-    }
+    registry.add('htmlbars-ast-plugin', {
+      name: 'inject-context',
+      plugin: this._buildAstPlugin()
+    });
+  },
+
+  _buildAstPlugin() {
+    const checker = new VersionChecker(this.project);
+    const emberVersion = checker.for('ember-source');
+    return emberVersion.gte('3.17.0')
+      ? InjectContextTransform
+      : LegacyInjectContextTransform;
   }
 };
